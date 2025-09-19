@@ -1,5 +1,6 @@
 ## EX 7 : IMPLEMENTATION OF IMPLEMENTATION OF DES
-
+## Name: SRINIVASAN S
+## REGISTER NO: 212224220105
 ## AIM:
 
 To implement the working of the Data Encryption Standard (DES) using a simplified XOR-based encryption and decryption method in C programming.
@@ -26,7 +27,74 @@ To Perform Decryption:
 
 ## PROGRAM:
 
+```
+#include <stdio.h>
+#include <string.h>
+
+// Function to perform a simple XOR-based encryption
+void encrypt(char *message, char *key, char *encryptedMessage, int messageLength) {
+    int keyLength = strlen(key);
+    for (int i = 0; i < messageLength; i++) {
+        // Encrypt by XORing message byte with key byte
+        encryptedMessage[i] = message[i] ^ key[i % keyLength];
+    }
+    encryptedMessage[messageLength] = '\0'; // Null-terminate the encrypted message
+}
+
+// Function to perform decryption (XOR again with the same key)
+void decrypt(char *encryptedMessage, char *key, char *decryptedMessage, int messageLength) {
+    int keyLength = strlen(key);
+    for (int i = 0; i < messageLength; i++) {
+        // Decrypt by XORing encrypted byte with key byte
+        decryptedMessage[i] = encryptedMessage[i] ^ key[i % keyLength];
+    }
+    decryptedMessage[messageLength] = '\0'; // Null-terminate the decrypted message
+}
+
+int main() {
+    char message[100];
+    char key[100];
+    char encryptedMessage[100];
+    char decryptedMessage[100];
+
+    printf("\n***** Simulation of DES encryption and decryption (XOR-based) *****\n\n");
+
+    // Get user input for the message
+    printf("Enter the message to encrypt: ");
+    fgets(message, sizeof(message), stdin);
+    message[strcspn(message, "\n")] = '\0'; // Remove newline character if present
+
+    // Get user input for the key
+    printf("Enter the encryption key: ");
+    fgets(key, sizeof(key), stdin);
+    key[strcspn(key, "\n")] = '\0'; // Remove newline character if present
+
+    int messageLength = strlen(message);
+
+    // Encrypt the message
+    encrypt(message, key, encryptedMessage, messageLength);
+
+    printf("\nOriginal Message: %s\n", message);
+    printf("Encrypted Message (Hex): ");
+    // Print encrypted message in hex format
+    for (int i = 0; i < messageLength; i++) {
+        printf("%02X ", (unsigned char)encryptedMessage[i]);
+    }
+    printf("\n");
+
+    // Decrypt the message
+    decrypt(encryptedMessage, key, decryptedMessage, messageLength);
+    printf("Decrypted Message: %s\n", decryptedMessage);
+
+    return 0;
+}
+
+```
+
 ## OUTPUT:
+
+<img width="767" height="342" alt="image" src="https://github.com/user-attachments/assets/735c9782-a9f9-4306-ac0f-c74f589f8175" />
+
 
 ## Result:
 The program implementing the Data Encryption Standard (DES) for encryption and decryption	has	been	successfully	executed,	and	the	results	have	been	verified.
